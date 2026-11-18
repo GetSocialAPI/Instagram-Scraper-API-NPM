@@ -26,6 +26,7 @@ test('routes map 1:1 to API endpoints', async () => {
   await client.instagram.userTags(25025320);
   await client.instagram.userStories(25025320);
   await client.instagram.userHighlights(25025320);
+  await client.instagram.highlightStories('highlight:18142207969557132');
   await client.instagram.followers(43586162288, 25);
   await client.instagram.following(25025320);
   await client.instagram.following(25025320, 30, 'CUR', 'durov');
@@ -48,6 +49,7 @@ test('routes map 1:1 to API endpoints', async () => {
     'https://api.getsocialapi.com/v1/ig/user/tags/25025320?count=12',
     'https://api.getsocialapi.com/v1/ig/user/stories/25025320',
     'https://api.getsocialapi.com/v1/ig/user/highlights/25025320',
+    'https://api.getsocialapi.com/v1/ig/highlight/stories/18142207969557132',
     'https://api.getsocialapi.com/v1/followers/43586162288?count=25',
     'https://api.getsocialapi.com/v1/following/25025320?count=25',
     'https://api.getsocialapi.com/v1/following/25025320?count=30&max_id=CUR&query=durov',

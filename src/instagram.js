@@ -109,6 +109,17 @@ export class InstagramAPI {
     return this._t.request('GET', `/ig/user/highlights/${digits(userId, 'user_id')}`);
   }
 
+  /**
+   * GET /ig/highlight/stories/{highlight_id} — media of a highlight.
+   *
+   * Accepts the tray id as is — the leading `highlight:` prefix
+   * (as returned by `userHighlights()`) is trimmed automatically.
+   */
+  highlightStories(highlightId) {
+    const hid = String(highlightId).replace(/^highlight:/, '');
+    return this._t.request('GET', `/ig/highlight/stories/${quote(length(hid, 'highlight_id', 1, 64))}`);
+  }
+
   // ---------- Followers / following ----------
 
   /**

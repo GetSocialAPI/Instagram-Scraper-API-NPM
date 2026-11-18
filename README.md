@@ -83,6 +83,7 @@ new Client({ apiKey, baseUrl, timeout = 30, maxRetries = 3, fetchImpl })
 | `userTags(userId, count = 12, maxId = null)` | `/ig/user/tags/<id>` | posts with the user tagged |
 | `userStories(userId)` | `/ig/user/stories/<id>` | active stories |
 | `userHighlights(userId)` | `/ig/user/highlights/<id>` | highlights tray |
+| `highlightStories(highlightId)` | `/ig/highlight/stories/<id>` | media of a highlight |
 | `followers(userId, count = 50, maxId = null, query = null)` | `/followers/<id>` | followers list |
 | `following(userId, count = 25, maxId = null, query = null)` | `/following/<id>` | following list |
 | `mediaInfo(media)` | `/ig/media/info/<pk\|shortcode>` | full media card; accepts numeric pk or shortcode |
