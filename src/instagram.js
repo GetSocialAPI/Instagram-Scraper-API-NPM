@@ -71,18 +71,6 @@ export class InstagramAPI {
   }
 
   /**
-   * GET /user/about/{user_id} — About this account.
-   *
-   * The "About this account" screen: country, registration month,
-   * former usernames count, accounts-with-shared-followers count,
-   * verification. Sparse accounts return null fields — check
-   * `has_about_data` / `unavailable` before using them.
-   */
-  userAbout(userId) {
-    return this._t.request('GET', `/user/about/${digits(userId, 'user_id')}`);
-  }
-
-  /**
    * GET /search/username/{query} — search users.
    *
    * `count` is forwarded to the service, but the response may include
@@ -119,17 +107,6 @@ export class InstagramAPI {
   /** GET /ig/user/highlights/{user_id} — highlights tray. */
   userHighlights(userId) {
     return this._t.request('GET', `/ig/user/highlights/${digits(userId, 'user_id')}`);
-  }
-
-  /**
-   * GET /ig/highlight/stories/{highlight_id} — media of a highlight.
-   *
-   * Accepts the tray id as is — the leading `highlight:` prefix
-   * (as returned by `userHighlights()`) is trimmed automatically.
-   */
-  highlightStories(highlightId) {
-    const hid = String(highlightId).replace(/^highlight:/, '');
-    return this._t.request('GET', `/ig/highlight/stories/${quote(length(hid, 'highlight_id', 1, 64))}`);
   }
 
   // ---------- Followers / following ----------
@@ -211,16 +188,6 @@ export class InstagramAPI {
     return this._t.request('GET', `/ig/media/comments/${mediaArg(media)}`, params);
   }
 
-  /**
-   * GET /ig/media/search_clips/{keyword} — search reels by keyword.
-   *
-   * The service returns its native page (~12 clips); a page-size
-   * parameter is not supported by the API for this route.
-   */
-  searchClips(keyword) {
-    return this._t.request('GET', `/ig/media/search_clips/${quote(length(keyword, 'keyword', 1, 100))}`);
-  }
-
   // ---------- Hashtags ----------
 
   /** GET /ig/hashtag/info/{tag} — hashtag card. A leading # is trimmed. */
@@ -238,35 +205,10 @@ export class InstagramAPI {
     return this._t.request('GET', `/ig/hashtag/search/${quote(query)}`);
   }
 
-  /**
-   * GET /v2/hashtag/posts/{tag} — posts by hashtag. A leading # is trimmed.
-   *
-   * The service returns its native page (~15-18 posts) plus `next_max_id`
-   * for pagination via `maxId`; a page-size parameter is not supported.
-   */
-  hashtagPosts(t, maxId = null) {
-    const params = {};
-    if (maxId != null) params.max_id = maxId;
-    return this._t.request('GET', `/v2/hashtag/posts/${tag(t)}`, params);
-  }
-
   // ---------- Locations ----------
 
   /** GET /ig/location/info/{pk} — location card. */
   locationInfo(pk) {
     return this._t.request('GET', `/ig/location/info/${digits(pk, 'pk')}`);
-  }
-
-  /**
-   * GET /ig/location/media/{pk} — media by location.
-   *
-   * The service returns its native page; pass `next_max_id` from a
-   * previous response as `maxId` to request the next page. The
-   * response also carries `next_page` — a page counter, not a cursor.
-   */
-  locationMedia(pk, maxId = null) {
-    const params = {};
-    if (maxId != null) params.max_id = maxId;
-    return this._t.request('GET', `/ig/location/media/${digits(pk, 'pk')}`, params);
   }
 }

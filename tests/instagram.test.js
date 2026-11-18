@@ -19,7 +19,6 @@ test('routes map 1:1 to API endpoints', async () => {
   await client.instagram.userInfo(25025320);
   await client.instagram.userByUsername('durov');
   await client.instagram.profile(25025320);
-  await client.instagram.userAbout(25025320);
   await client.instagram.searchUsername('durov');
   await client.instagram.similarUsers(25025320);
   await client.instagram.userMedias(25025320);
@@ -27,26 +26,21 @@ test('routes map 1:1 to API endpoints', async () => {
   await client.instagram.userTags(25025320);
   await client.instagram.userStories(25025320);
   await client.instagram.userHighlights(25025320);
-  await client.instagram.highlightStories('highlight:17895462');
   await client.instagram.followers(43586162288, 25);
   await client.instagram.following(25025320);
   await client.instagram.following(25025320, 30, 'CUR', 'durov');
   await client.instagram.mediaInfo('Deu3BoCBbDP');
   await client.instagram.mediaLikers('4012386322294878415'); // big pks must be passed as strings in JS
   await client.instagram.mediaComments('4012386322294878415', 50, 'recent');
-  await client.instagram.searchClips('cats');
   await client.instagram.hashtagInfo('#photography');
   await client.instagram.hashtagSearch('photo');
-  await client.instagram.hashtagPosts('photography');
   await client.instagram.locationInfo(213385402);
-  await client.instagram.locationMedia(213385402);
 
   const urls = calls.map((c) => c.url);
   assert.deepEqual(urls, [
     'https://api.getsocialapi.com/v1/ig/user/info/25025320',
     'https://api.getsocialapi.com/v1/ig/user/username_info/durov',
     'https://api.getsocialapi.com/v1/profile/25025320',
-    'https://api.getsocialapi.com/v1/user/about/25025320',
     'https://api.getsocialapi.com/v1/search/username/durov?count=10',
     'https://api.getsocialapi.com/v1/ig/user/similar/25025320',
     'https://api.getsocialapi.com/v1/ig/user/media/25025320?count=12',
@@ -54,19 +48,15 @@ test('routes map 1:1 to API endpoints', async () => {
     'https://api.getsocialapi.com/v1/ig/user/tags/25025320?count=12',
     'https://api.getsocialapi.com/v1/ig/user/stories/25025320',
     'https://api.getsocialapi.com/v1/ig/user/highlights/25025320',
-    'https://api.getsocialapi.com/v1/ig/highlight/stories/17895462',
     'https://api.getsocialapi.com/v1/followers/43586162288?count=25',
     'https://api.getsocialapi.com/v1/following/25025320?count=25',
     'https://api.getsocialapi.com/v1/following/25025320?count=30&max_id=CUR&query=durov',
     'https://api.getsocialapi.com/v1/ig/media/info/Deu3BoCBbDP',
     'https://api.getsocialapi.com/v1/ig/media/likers/4012386322294878415',
     'https://api.getsocialapi.com/v1/ig/media/comments/4012386322294878415?count=50&sort_order=recent',
-    'https://api.getsocialapi.com/v1/ig/media/search_clips/cats',
     'https://api.getsocialapi.com/v1/ig/hashtag/info/photography',
     'https://api.getsocialapi.com/v1/ig/hashtag/search/photo',
-    'https://api.getsocialapi.com/v1/v2/hashtag/posts/photography',
     'https://api.getsocialapi.com/v1/ig/location/info/213385402',
-    'https://api.getsocialapi.com/v1/ig/location/media/213385402',
   ]);
 });
 
@@ -105,7 +95,6 @@ test('validates arguments', async () => {
   await assert.rejects(async () => client.instagram.mediaComments('Deu3BoCBbDP', null, 'hot'), TypeError);
   await assert.rejects(async () => client.instagram.userMedias(1, 0), TypeError);
   await assert.rejects(async () => client.instagram.following(1, 51), TypeError);
-  await assert.rejects(async () => client.instagram.searchClips(''), TypeError);
 });
 
 test('client requires an API key', () => {
