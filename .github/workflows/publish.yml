@@ -3,12 +3,13 @@ name: publish
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # npm provenance
+      id-token: write # npm trusted publishing and provenance
       contents: read
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +17,8 @@ jobs:
         with:
           node-version: '22'
           registry-url: https://registry.npmjs.org
-      - run: npm publish --access public
+      - run: npm install --global npm@11
+      - run: npm test
+      - run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
