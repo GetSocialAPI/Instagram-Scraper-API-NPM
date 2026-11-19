@@ -89,9 +89,13 @@ export class InstagramAPI {
 
   // ---------- User content ----------
 
-  /** GET /ig/user/media/{user_id} — profile grid posts. */
-  userMedias(userId, count = 12, maxId = null) {
-    return this._t.request('GET', `/ig/user/media/${digits(userId, 'user_id')}`, page(count, maxId, 12));
+  /** GET /ig/user/media/{user_id} — up to 12 profile posts per page. */
+  userMedias(userId, maxId = null) {
+    if (maxId != null && typeof maxId !== 'string') {
+      throw new TypeError('maxId must be a string cursor');
+    }
+    const params = maxId == null ? {} : { max_id: maxId };
+    return this._t.request('GET', `/ig/user/media/${digits(userId, 'user_id')}`, params);
   }
 
   /** GET /ig/user/tags/{user_id} — posts where the user is tagged. */

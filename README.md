@@ -31,7 +31,7 @@ const user = await client.instagram.userInfo(25025320);
 console.log(user.user.follower_count);
 
 // Posts (grid)
-const medias = await client.instagram.userMedias(25025320, 12);
+const medias = await client.instagram.userMedias(25025320);
 
 // Followers / following — paginated on unverified accounts: pass `next_max_id`
 // back as `maxId`. Verified accounts (blue checkmark) expose ~50 followers max.
@@ -79,7 +79,7 @@ new Client({ apiKey, baseUrl, timeout = 30, maxRetries = 3, fetchImpl })
 | `userByUsername(username)` | `/ig/user/username_info/<username>` | profile by username |
 | `searchUsername(query, count = 10)` | `/search/username/<q>` | search users, resolve username → pk |
 | `similarUsers(userId)` | `/ig/user/similar/<id>` | suggested accounts |
-| `userMedias(userId, count = 12, maxId = null)` | `/ig/user/media/<id>` | profile grid posts |
+| `userMedias(userId, maxId = null)` | `/ig/user/media/<id>` | up to 12 profile posts per page |
 | `userTags(userId, count = 12, maxId = null)` | `/ig/user/tags/<id>` | posts with the user tagged |
 | `userStories(userId)` | `/ig/user/stories/<id>` | active stories |
 | `userHighlights(userId)` | `/ig/user/highlights/<id>` | highlights tray |

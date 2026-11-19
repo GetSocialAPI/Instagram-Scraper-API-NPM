@@ -1,6 +1,6 @@
 {
   "name": "getsocialapi-instagram",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "GetSocialAPI — client library for the Instagram API (no cookies, no accounts required)",
   "type": "module",
   "main": "./src/index.js",

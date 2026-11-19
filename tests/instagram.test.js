@@ -22,7 +22,7 @@ test('routes map 1:1 to API endpoints', async () => {
   await client.instagram.searchUsername('durov');
   await client.instagram.similarUsers(25025320);
   await client.instagram.userMedias(25025320);
-  await client.instagram.userMedias(25025320, 5, 'CURSOR');
+  await client.instagram.userMedias(25025320, 'CURSOR');
   await client.instagram.userTags(25025320);
   await client.instagram.userStories(25025320);
   await client.instagram.userHighlights(25025320);
@@ -44,8 +44,8 @@ test('routes map 1:1 to API endpoints', async () => {
     'https://api.getsocialapi.com/v1/profile/25025320',
     'https://api.getsocialapi.com/v1/search/username/durov?count=10',
     'https://api.getsocialapi.com/v1/ig/user/similar/25025320',
-    'https://api.getsocialapi.com/v1/ig/user/media/25025320?count=12',
-    'https://api.getsocialapi.com/v1/ig/user/media/25025320?count=5&max_id=CURSOR',
+    'https://api.getsocialapi.com/v1/ig/user/media/25025320',
+    'https://api.getsocialapi.com/v1/ig/user/media/25025320?max_id=CURSOR',
     'https://api.getsocialapi.com/v1/ig/user/tags/25025320?count=12',
     'https://api.getsocialapi.com/v1/ig/user/stories/25025320',
     'https://api.getsocialapi.com/v1/ig/user/highlights/25025320',
@@ -95,7 +95,7 @@ test('validates arguments', async () => {
   await assert.rejects(async () => client.instagram.userByUsername(''), TypeError);
   await assert.rejects(async () => client.instagram.mediaInfo('!!'), TypeError);
   await assert.rejects(async () => client.instagram.mediaComments('Deu3BoCBbDP', null, 'hot'), TypeError);
-  await assert.rejects(async () => client.instagram.userMedias(1, 0), TypeError);
+  await assert.rejects(async () => client.instagram.userMedias(1, 0), /maxId must be a string cursor/);
   await assert.rejects(async () => client.instagram.following(1, 51), TypeError);
 });
 
