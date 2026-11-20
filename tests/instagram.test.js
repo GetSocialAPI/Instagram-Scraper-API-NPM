@@ -17,6 +17,7 @@ test('routes map 1:1 to API endpoints', async () => {
   const client = new Client({ apiKey: 'gsa_live_test', fetchImpl: recordingFetch(calls, () => json({})) });
 
   await client.instagram.userInfo(25025320);
+  await client.instagram.userAbout(25025320);
   await client.instagram.userByUsername('durov');
   await client.instagram.profile(25025320);
   await client.instagram.searchUsername('durov');
@@ -40,6 +41,7 @@ test('routes map 1:1 to API endpoints', async () => {
   const urls = calls.map((c) => c.url);
   assert.deepEqual(urls, [
     'https://api.getsocialapi.com/v1/ig/user/info/25025320',
+    'https://api.getsocialapi.com/v1/user/about/25025320',
     'https://api.getsocialapi.com/v1/ig/user/username_info/durov',
     'https://api.getsocialapi.com/v1/profile/25025320',
     'https://api.getsocialapi.com/v1/search/username/durov?count=10',
